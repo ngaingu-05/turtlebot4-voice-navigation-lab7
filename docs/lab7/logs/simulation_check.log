@@ -1,0 +1,3 @@
+{"command": "Đi đến khu vực A", "expected": ["A"], "arrived": ["A"], "terminal": "completed", "duration_s": 66.16115274599906, "final_truth": {"x": -2.3555142264148174, "y": 0.5075593855664786}, "final_error_m": 0.11257813844526283, "passed": true}
+{"command": "Di chuyển từ khu vực A đến khu vực B", "expected": ["A", "B"], "arrived": ["A", "B"], "terminal": "completed", "duration_s": 110.10986484299974, "final_truth": {"x": 1.976029002297874, "y": -2.745291107069066}, "final_error_m": 0.2517797044919926, "passed": true}
+{"command": "Đi đến hành lang", "expected": ["C"], "arrived": ["C"], "terminal": "completed", "duration_s": 117.55604400199991, "final_truth": {"x": 2.02720588096658, "y": 2.8071853770147848}, "final_error_m": 0.20096501747519901, "passed": true}

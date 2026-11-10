@@ -1,0 +1,25 @@
+{
+  "environment": "Ubuntu 24.04 / ROS 2 Jazzy",
+  "build": "PASS: tb4_simulation_lab and tb4_voice_navigation in isolated release checkout",
+  "pytest": {
+    "passed": 39,
+    "failed": 0
+  },
+  "colcon": {
+    "tests": 40,
+    "errors": 0,
+    "failures": 0,
+    "skipped": 0,
+    "note": "39 pytest cases plus ament/CTest wrapper"
+  },
+  "mock_ros_integration": {
+    "passed": 11,
+    "failed": 0,
+    "domain_id": 73
+  },
+  "pdf": {
+    "pages": 2,
+    "github_link": "https://github.com/ngaingu-05/turtlebot4-voice-navigation-lab7",
+    "drive_link": "https://drive.google.com/drive/u/1/folders/1KpX5KTfOAgTgpQlJO7Gp-5q5eNcDs8VM"
+  }
+}

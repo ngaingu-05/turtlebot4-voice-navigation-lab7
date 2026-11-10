@@ -1,0 +1,36 @@
+[INFO] [1794322273.501671569] [voice_navigation]: {"state": "ready", "message": "Sẵn sàng nhận lệnh", "route": [], "index": 0}
+[INFO] [1794322273.599438846] [voice_navigation]: {"state": "navigating", "message": "Đi đến Phòng học", "route": ["A"], "index": 0, "region": "A"}
+[INFO] [1794322273.760287355] [voice_navigation]: {"state": "arrived", "message": "Đã đến A", "route": ["A"], "index": 0}
+[INFO] [1794322273.833497752] [voice_navigation]: {"state": "completed", "message": "Đã hoàn thành tuyến đường", "route": ["A"], "index": 1}
+[INFO] [1794322274.122149249] [voice_navigation]: {"state": "navigating", "message": "Đi đến Phòng học", "route": ["A", "B"], "index": 0, "region": "A"}
+[INFO] [1794322274.305460336] [voice_navigation]: {"state": "arrived", "message": "Đã đến A", "route": ["A", "B"], "index": 0}
+[INFO] [1794322274.315102130] [voice_navigation]: {"state": "navigating", "message": "Đi đến Phòng thí nghiệm", "route": ["A", "B"], "index": 1, "region": "B"}
+[INFO] [1794322274.471987074] [voice_navigation]: {"state": "arrived", "message": "Đã đến B", "route": ["A", "B"], "index": 1}
+[INFO] [1794322274.475267036] [voice_navigation]: {"state": "completed", "message": "Đã hoàn thành tuyến đường", "route": ["A", "B"], "index": 2}
+[INFO] [1794322274.681334970] [voice_navigation]: {"state": "navigating", "message": "Đi đến Phòng thí nghiệm", "route": ["B"], "index": 0, "region": "B"}
+[INFO] [1794322274.849843876] [voice_navigation]: {"state": "arrived", "message": "Đã đến B", "route": ["B"], "index": 0}
+[INFO] [1794322274.937584020] [voice_navigation]: {"state": "completed", "message": "Đã hoàn thành tuyến đường", "route": ["B"], "index": 1}
+[INFO] [1794322275.308546244] [voice_navigation]: {"state": "navigating", "message": "Đi đến Phòng học", "route": ["A", "C", "B"], "index": 0, "region": "A"}
+[INFO] [1794322275.471486510] [voice_navigation]: {"state": "arrived", "message": "Đã đến A", "route": ["A", "C", "B"], "index": 0}
+[INFO] [1794322275.475060198] [voice_navigation]: {"state": "navigating", "message": "Đi đến Hành lang", "route": ["A", "C", "B"], "index": 1, "region": "C"}
+[INFO] [1794322275.632522654] [voice_navigation]: {"state": "arrived", "message": "Đã đến C", "route": ["A", "C", "B"], "index": 1}
+[INFO] [1794322275.639981139] [voice_navigation]: {"state": "navigating", "message": "Đi đến Phòng thí nghiệm", "route": ["A", "C", "B"], "index": 2, "region": "B"}
+[INFO] [1794322275.809687108] [voice_navigation]: {"state": "arrived", "message": "Đã đến B", "route": ["A", "C", "B"], "index": 2}
+[INFO] [1794322275.816333247] [voice_navigation]: {"state": "completed", "message": "Đã hoàn thành tuyến đường", "route": ["A", "C", "B"], "index": 3}
+[INFO] [1794322275.960643150] [voice_navigation]: {"state": "invalid_command", "message": "Khu vực không tồn tại: khu vuc z", "route": ["A", "C", "B"], "index": 3, "text": "Đi từ A qua khu vực Z rồi đến B"}
+[INFO] [1794322276.219565407] [voice_navigation]: {"state": "invalid_command", "message": "Lệnh phủ định hoặc mơ hồ; hãy nói rõ một tuyến đường", "route": ["A", "C", "B"], "index": 3, "text": "Không đi đến A"}
+[INFO] [1794322276.325664500] [voice_navigation]: {"state": "navigating", "message": "Đi đến Phòng học", "route": ["A", "B"], "index": 0, "region": "A"}
+[INFO] [1794322276.331546243] [voice_navigation]: {"state": "rejected", "message": "Nav2 từ chối đích; dừng toàn bộ tuyến", "route": ["A", "B"], "index": 0}
+[INFO] [1794322276.539067595] [voice_navigation]: {"state": "navigating", "message": "Đi đến Phòng học", "route": ["A", "B"], "index": 0, "region": "A"}
+[INFO] [1794322276.701596694] [voice_navigation]: {"state": "failed", "message": "Nav2 thất bại; không gửi các điểm còn lại", "route": ["A", "B"], "index": 0, "action_status": 6}
+[INFO] [1794322276.839253325] [voice_navigation]: {"state": "navigating", "message": "Đi đến Phòng học", "route": ["A", "B"], "index": 0, "region": "A"}
+[INFO] [1794322276.903305454] [voice_navigation]: {"state": "busy", "message": "Robot đang thực hiện lệnh; hãy chờ hoặc nói dừng lại", "route": ["A", "B"], "index": 0}
+[INFO] [1794322276.923669724] [voice_navigation]: {"state": "stopping", "message": "Người dùng yêu cầu dừng", "route": ["A", "B"], "index": 0}
+[INFO] [1794322276.945043043] [voice_navigation]: {"state": "stopped", "message": "Goal đã kết thúc; tuyến đường đã hủy", "route": ["A", "B"], "index": 0, "action_status": 5}
+[INFO] [1794322277.175472598] [voice_navigation]: {"state": "navigating", "message": "Đi đến Phòng học", "route": ["A", "B"], "index": 0, "region": "A"}
+[INFO] [1794322278.027948802] [voice_navigation]: {"state": "stopping", "message": "Quá thời gian điều hướng; hủy tuyến đường", "route": ["A", "B"], "index": 0}
+[INFO] [1794322278.042221002] [voice_navigation]: {"state": "stopped", "message": "Goal đã kết thúc; tuyến đường đã hủy", "route": ["A", "B"], "index": 0, "action_status": 5}
+[INFO] [1794322278.435308619] [voice_navigation]: {"state": "navigating", "message": "Đi đến Phòng học", "route": ["A", "B"], "index": 0, "region": "A"}
+[INFO] [1794322278.565090640] [voice_navigation]: {"state": "stopping", "message": "Người dùng yêu cầu dừng", "route": ["A", "B"], "index": 0}
+[INFO] [1794322278.937519259] [voice_navigation]: {"state": "stopped", "message": "Goal đã kết thúc; tuyến đường đã hủy", "route": ["A", "B"], "index": 0, "action_status": 5}
+PASS: 11 ROS integration scenarios; evidence: /home/nghia/turtlebot4/docs/lab7/ros_integration.json

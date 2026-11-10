@@ -1,0 +1,56 @@
+{
+  "date": "2026-11-10",
+  "source": "live microphone terminal transcript and ROS voice_navigation logs",
+  "transcripts": [
+    "Đi đến vùng A",
+    "Đi đến vùng B",
+    "Đi đến vùng b",
+    "Đi đến vùng C.",
+    "Đi đến vùng A"
+  ],
+  "notes": [
+    "The first A/B attempts were rejected before vùng aliases were added.",
+    "The first navigation to B after the fix was a text replay; the next B, C and A requests were spoken by the user.",
+    "The spoken B request completed while the robot was already at B.",
+    "No word error rate or microphone recognition accuracy has been measured.",
+    "Raw microphone WAVs are local and are not included in the public source release."
+  ],
+  "sessions": [
+    {
+      "route": [
+        "B"
+      ],
+      "start_wall_time_s": 1794325120.3474743,
+      "completed": true,
+      "duration_s": 51.35774636268616,
+      "input": "text replay after alias fix"
+    },
+    {
+      "route": [
+        "B"
+      ],
+      "start_wall_time_s": 1794325249.4067748,
+      "completed": true,
+      "duration_s": 0.06613993644714355,
+      "input": "live microphone command"
+    },
+    {
+      "route": [
+        "C"
+      ],
+      "start_wall_time_s": 1794325280.5844684,
+      "completed": true,
+      "duration_s": 85.15614676475525,
+      "input": "live microphone command"
+    },
+    {
+      "route": [
+        "A"
+      ],
+      "start_wall_time_s": 1794325414.1030855,
+      "completed": false,
+      "duration_s": null,
+      "input": "live microphone command"
+    }
+  ]
+}

@@ -1,0 +1,267 @@
+# ============================================================================
+# Cấu hình RViz2 cho Bài thực hành 04 – TurtleBot 4 Simulation
+# Hiển thị: Robot, TF, LaserScan, Map, Particle Cloud (AMCL),
+#           Global/Local Costmap, Global/Local Plan, Nav2 Goal
+# ============================================================================
+Panels:
+  - Class: rviz_common/Displays
+    Help Height: 78
+    Name: Displays
+    Property Tree Widget:
+      Expanded:
+        - /Global Options1
+        - /Map1
+        - /LaserScan1
+        - /ParticleCloud1
+        - /Global Costmap1
+        - /Local Costmap1
+      Splitter Ratio: 0.5
+    Tree Height: 600
+  - Class: rviz_common/Selection
+    Name: Selection
+  - Class: rviz_common/Tool Properties
+    Expanded:
+      - /2D Pose Estimate1
+      - /Nav2 Goal1
+    Name: Tool Properties
+    Splitter Ratio: 0.588679
+  - Class: rviz_common/Views
+    Expanded:
+      - /Current View1
+    Name: Views
+    Splitter Ratio: 0.5
+Visualization Manager:
+  Class: ""
+  Displays:
+    # ------------------------------------------------------------------
+    # Lưới nền – giúp định hướng không gian
+    # ------------------------------------------------------------------
+    - Alpha: 0.5
+      Cell Size: 1
+      Class: rviz_default_plugins/Grid
+      Color: 160; 160; 164
+      Enabled: true
+      Name: Grid
+      Plane: XY
+      Reference Frame: <Fixed Frame>
+      Value: true
+
+    # ------------------------------------------------------------------
+    # Bản đồ occupancy grid – phát trên /map bởi SLAM hoặc map_server
+    # ------------------------------------------------------------------
+    - Alpha: 0.7
+      Class: rviz_default_plugins/Map
+      Color Scheme: map
+      Enabled: true
+      Name: Map
+      Topic:
+        Depth: 1
+        Durability Policy: Transient Local
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /map
+      Update Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /map_updates
+      Value: true
+
+    # ------------------------------------------------------------------
+    # Dữ liệu LiDAR – hiển thị tia quét trên /scan
+    # ------------------------------------------------------------------
+    - Alpha: 1
+      Class: rviz_default_plugins/LaserScan
+      Color: 255; 25; 0
+      Enabled: true
+      Name: LaserScan
+      Size (Pixels): 3
+      Size (m): 0.03
+      Style: Flat Squares
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Best Effort
+        Value: /scan
+      Use Fixed Frame: true
+      Value: true
+
+    # ------------------------------------------------------------------
+    # Cây TF – hiển thị quan hệ giữa các frame
+    # ------------------------------------------------------------------
+    - Class: rviz_default_plugins/TF
+      Enabled: true
+      Frame Timeout: 15
+      Name: TF
+      Show Arrows: true
+      Show Axes: true
+      Show Names: true
+      Value: true
+
+    # ------------------------------------------------------------------
+    # Mô hình robot 3D – nhận từ /robot_description
+    # ------------------------------------------------------------------
+    - Class: rviz_default_plugins/RobotModel
+      Description Topic:
+        Depth: 5
+        Durability Policy: Transient Local
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /robot_description
+      Enabled: true
+      Name: RobotModel
+      Value: true
+      Visual Enabled: true
+      Collision Enabled: false
+
+    # ------------------------------------------------------------------
+    # Global Plan – đường đi toàn cục do NavFn/Smac tạo ra
+    # ------------------------------------------------------------------
+    - Class: rviz_default_plugins/Path
+      Enabled: true
+      Name: Global Plan
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /plan
+      Color: 0; 255; 0
+      Value: true
+
+    # ------------------------------------------------------------------
+    # Local Plan – quỹ đạo cục bộ do DWB Controller tạo ra
+    # ------------------------------------------------------------------
+    - Class: rviz_default_plugins/Path
+      Enabled: true
+      Name: Local Plan
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /local_plan
+      Color: 255; 255; 0
+      Value: true
+
+    # ------------------------------------------------------------------
+    # Particle Cloud – tập hạt AMCL (PoseArray) cho localization
+    # ------------------------------------------------------------------
+    - Class: nav2_rviz_plugins/ParticleCloud
+      Enabled: true
+      Name: ParticleCloud
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Best Effort
+        Value: /particle_cloud
+      Shape: Arrow (Flat)
+      Alpha: 0.5
+      Color: 0; 180; 255
+      Max Arrow Length: 0.3
+      Min Arrow Length: 0.02
+      Value: true
+
+    # ------------------------------------------------------------------
+    # AMCL Pose – pose ước lượng trung bình với covariance
+    # ------------------------------------------------------------------
+    - Class: rviz_default_plugins/PoseWithCovariance
+      Enabled: true
+      Name: AMCL Pose
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /amcl_pose
+      Color: 255; 0; 255
+      Value: true
+
+    # ------------------------------------------------------------------
+    # Global Costmap – hiển thị bản đồ chi phí toàn cục
+    # ------------------------------------------------------------------
+    - Alpha: 0.3
+      Class: rviz_default_plugins/Map
+      Color Scheme: costmap
+      Enabled: true
+      Name: Global Costmap
+      Topic:
+        Depth: 1
+        Durability Policy: Transient Local
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /global_costmap/costmap
+      Value: true
+
+    # ------------------------------------------------------------------
+    # Local Costmap – cửa sổ chi phí cục bộ quanh robot
+    # ------------------------------------------------------------------
+    - Alpha: 0.3
+      Class: rviz_default_plugins/Map
+      Color Scheme: costmap
+      Enabled: false
+      Name: Local Costmap
+      Topic:
+        Depth: 1
+        Durability Policy: Transient Local
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /local_costmap/costmap
+      Value: true
+
+  Enabled: true
+  Global Options:
+    Background Color: 48; 48; 48
+    Fixed Frame: odom
+    Frame Rate: 30
+  Name: root
+  Tools:
+    - Class: rviz_default_plugins/Interact
+      Hide Inactive Objects: true
+    - Class: rviz_default_plugins/MoveCamera
+    - Class: rviz_default_plugins/Select
+    - Class: rviz_default_plugins/FocusCamera
+    - Class: rviz_default_plugins/Measure
+    # 2D Pose Estimate – dùng để đặt vị trí ban đầu cho AMCL
+    - Class: rviz_default_plugins/SetInitialPose
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /initialpose
+    # Nav2 Goal – dùng để đặt điểm đích cho Navigation
+    - Class: nav2_rviz_plugins/GoalTool
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /goal_pose
+  Transformation:
+    Current:
+      Class: rviz_default_plugins/TF
+  Value: true
+  Views:
+    Current:
+      Class: rviz_default_plugins/Orbit
+      Distance: 10
+      Focal Point:
+        X: 0
+        Y: 0
+        Z: 0
+      # Pitch = 1.57 (pi/2) – nhìn từ trên xuống (top-down)
+      Pitch: 1.57
+      Target Frame: <Fixed Frame>
+      Yaw: 0
+Window Geometry:
+  Displays:
+    collapsed: false
+  Height: 900
+  Hide Left Dock: false
+  Hide Right Dock: false
+  QMainWindow State: 000000ff00000000fd000000040000000000000180000003b3fc0200000002fb000000100044006900730070006c006100790073010000003d00000224000000c900fffffffb0000000a00560069006500770073000000003f000003b3000000a000ffffff00000003000004b00000003afc0100000002fb0000000800540069006d00650100000000000004b00000000000000000fb000000080054006f006f006c00730100000000000004b00000000000000000000003f000003b300000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  Width: 1400

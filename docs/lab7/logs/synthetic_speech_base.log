@@ -1,0 +1,4 @@
+Loading multilingual Whisper base (CPU int8)...
+{"audio": "synthetic_audio/command_1.wav", "synthetic_text": "Đi đến khu vực a.", "transcript": "", "expected": ["A"], "actual": null, "passed": false, "transcription_s": 10.54527469200002, "error": "Dùng: Đi đến <vùng>, hoặc Di chuyển từ <vùng> đến <vùng>"}
+{"audio": "synthetic_audio/command_2.wav", "synthetic_text": "Di chuyển từ khu vực a đến khu vực bê.", "transcript": "", "expected": ["A", "B"], "actual": null, "passed": false, "transcription_s": 6.372857702001056, "error": "Dùng: Đi đến <vùng>, hoặc Di chuyển từ <vùng> đến <vùng>"}
+{"audio": "synthetic_audio/command_3.wav", "synthetic_text": "Đi đến phòng thí nghiệm.", "transcript": "Hãy subscribe cho kênh Ghiền Mì Gõ Để không bỏ lỡ những video hấp dẫn", "expected": ["B"], "actual": null, "passed": false, "transcription_s": 1.3002998619995196, "error": "Lệnh phủ định hoặc mơ hồ; hãy nói rõ một tuyến đường"}

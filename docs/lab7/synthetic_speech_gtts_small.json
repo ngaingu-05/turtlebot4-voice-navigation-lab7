@@ -1,0 +1,51 @@
+{
+  "source": "Google Translate TTS via gTTS 2.5.4; SYNTHETIC audio, NOT human microphone recordings",
+  "model": "small",
+  "compute_type": "int8",
+  "results": [
+    {
+      "audio": "gtts_audio/command_1.mp3",
+      "synthetic_text": "Đi đến khu vực a.",
+      "transcript": "Đi đến khu vực A.",
+      "expected": [
+        "A"
+      ],
+      "actual": [
+        "A"
+      ],
+      "passed": true,
+      "transcription_s": 2.258811649000563,
+      "error": null
+    },
+    {
+      "audio": "gtts_audio/command_2.mp3",
+      "synthetic_text": "Di chuyển từ khu vực a đến khu vực bê.",
+      "transcript": "Di chuyển từ khu vực A đến khu vực B.",
+      "expected": [
+        "A",
+        "B"
+      ],
+      "actual": [
+        "A",
+        "B"
+      ],
+      "passed": true,
+      "transcription_s": 2.069044808999024,
+      "error": null
+    },
+    {
+      "audio": "gtts_audio/command_3.mp3",
+      "synthetic_text": "Đi đến phòng thí nghiệm.",
+      "transcript": "Đi đến phòng thí nghiệm.",
+      "expected": [
+        "B"
+      ],
+      "actual": [
+        "B"
+      ],
+      "passed": true,
+      "transcription_s": 1.9527422190003563,
+      "error": null
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+[INFO] [launch]: All log files can be found below /home/nghia/.ros/log/2026-11-10-21-53-33-401705-nghia-Modern-14-C7M-23663
+[INFO] [launch]: Default logging verbosity is set to INFO
+[INFO] [voice_navigation_node-1]: process started with pid [23676]
+[voice_navigation_node-1] [INFO] [1794322415.775419048] [voice_navigation]: {"state": "ready", "message": "Sẵn sàng nhận lệnh", "route": [], "index": 0}
+[voice_navigation_node-1] [INFO] [1794322431.280101837] [voice_navigation]: {"state": "navigating", "message": "Đi đến Phòng học", "route": ["A"], "index": 0, "region": "A"}
+[voice_navigation_node-1] [INFO] [1794322431.281929394] [voice_navigation]: {"state": "rejected", "message": "Nav2 từ chối đích; dừng toàn bộ tuyến", "route": ["A"], "index": 0}
+[voice_navigation_node-1] [INFO] [1794322431.284261554] [voice_navigation]: {"state": "idle", "message": "Robot không có lệnh đang chạy", "route": ["A"], "index": 0}
+[voice_navigation_node-1] [INFO] [1794322512.303480126] [voice_navigation]: {"state": "navigating", "message": "Đi đến Phòng học", "route": ["A"], "index": 0, "region": "A"}
+[voice_navigation_node-1] [INFO] [1794322578.457430419] [voice_navigation]: {"state": "arrived", "message": "Đã đến A", "route": ["A"], "index": 0}
+[voice_navigation_node-1] [INFO] [1794322578.458272763] [voice_navigation]: {"state": "completed", "message": "Đã hoàn thành tuyến đường", "route": ["A"], "index": 1}
+[voice_navigation_node-1] [INFO] [1794322578.462118747] [voice_navigation]: {"state": "navigating", "message": "Đi đến Phòng học", "route": ["A", "B"], "index": 0, "region": "A"}
+[voice_navigation_node-1] [INFO] [1794322578.515032309] [voice_navigation]: {"state": "arrived", "message": "Đã đến A", "route": ["A", "B"], "index": 0}
+[voice_navigation_node-1] [INFO] [1794322578.515760636] [voice_navigation]: {"state": "navigating", "message": "Đi đến Phòng thí nghiệm", "route": ["A", "B"], "index": 1, "region": "B"}
+[voice_navigation_node-1] [INFO] [1794322688.568526771] [voice_navigation]: {"state": "arrived", "message": "Đã đến B", "route": ["A", "B"], "index": 1}
+[voice_navigation_node-1] [INFO] [1794322688.569282791] [voice_navigation]: {"state": "completed", "message": "Đã hoàn thành tuyến đường", "route": ["A", "B"], "index": 2}
+[voice_navigation_node-1] [INFO] [1794322688.571492411] [voice_navigation]: {"state": "navigating", "message": "Đi đến Hành lang", "route": ["C"], "index": 0, "region": "C"}
+[voice_navigation_node-1] [INFO] [1794322806.178422443] [voice_navigation]: {"state": "arrived", "message": "Đã đến C", "route": ["C"], "index": 0}
+[voice_navigation_node-1] [INFO] [1794322806.178982843] [voice_navigation]: {"state": "completed", "message": "Đã hoàn thành tuyến đường", "route": ["C"], "index": 1}
+[voice_navigation_node-1] [INFO] [1794322806.179847509] [voice_navigation]: {"state": "invalid_command", "message": "Khu vực không tồn tại: khu vuc z", "route": ["C"], "index": 1, "text": "Đi đến khu vực Z"}
+[WARNING] [launch]: user interrupted with ctrl-c (SIGINT)
+[INFO] [voice_navigation_node-1]: sending signal 'SIGINT' to process[voice_navigation_node-1]
+[voice_navigation_node-1] [INFO] [1794322934.716158265] [voice_navigation]: {"state": "idle", "message": "Robot không có lệnh đang chạy", "route": ["C"], "index": 1}
+[INFO] [voice_navigation_node-1]: process has finished cleanly [pid 23676]

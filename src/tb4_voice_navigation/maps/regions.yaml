@@ -1,0 +1,83 @@
+schema_version: 1
+frame_id: map
+map_yaml: map.yaml
+map_sha256: efe8fb638f8c68d14dbe982a2450b35deca3bc1e9386a74b4c63592d9ab4fe04
+labels_image: labels.png
+method: seeded_geodesic_voronoi
+required_clearance_m: 0.4
+unassigned_free_cells: 757
+regions:
+- id: A
+  name: Phòng học
+  aliases:
+  - khu vực a
+  - khu a
+  - vùng a
+  - phòng a
+  - a
+  seed:
+  - -2.468
+  - 0.503
+  label: 1
+  goal:
+    x: -2.468
+    y: 0.5029999999999992
+    yaw: 0.0
+  goal_pixel:
+  - 253
+  - 139
+  clearance_m: 2.874112129211426
+  area_m2: 205.68500000000003
+- id: B
+  name: Phòng thí nghiệm
+  aliases:
+  - khu vực b
+  - khu b
+  - vùng b
+  - phòng b
+  - b
+  - bê
+  - khu vực bê
+  - khu bê
+  - vùng bê
+  - phòng bê
+  seed:
+  - 2.0
+  - -3.0
+  label: 2
+  goal:
+    x: 1.9819999999999993
+    y: -2.997
+    yaw: 0.0
+  goal_pixel:
+  - 342
+  - 209
+  clearance_m: 0.5146446824073792
+  area_m2: 105.39000000000001
+- id: C
+  name: Hành lang
+  aliases:
+  - khu vực c
+  - khu c
+  - vùng c
+  - phòng c
+  - hành lang c
+  - c
+  - xê
+  - khu vực xê
+  - khu xê
+  - vùng xê
+  - hành lang xê
+  seed:
+  - 2.0
+  - 3.0
+  label: 3
+  goal:
+    x: 1.9819999999999993
+    y: 3.003000000000001
+    yaw: 0.0
+  goal_pixel:
+  - 342
+  - 89
+  clearance_m: 0.566724419593811
+  area_m2: 114.27500000000002

@@ -1,0 +1,49 @@
+{
+  "source": "Google Translate TTS via gTTS 2.5.4; SYNTHETIC audio, NOT human microphone recordings",
+  "model": "base",
+  "compute_type": "int8",
+  "results": [
+    {
+      "audio": "gtts_audio/command_1.mp3",
+      "synthetic_text": "Đi đến khu vực a.",
+      "transcript": "Đi đến khu vực A.",
+      "expected": [
+        "A"
+      ],
+      "actual": [
+        "A"
+      ],
+      "passed": true,
+      "transcription_s": 0.7024202280008467,
+      "error": null
+    },
+    {
+      "audio": "gtts_audio/command_2.mp3",
+      "synthetic_text": "Di chuyển từ khu vực a đến khu vực bê.",
+      "transcript": "di chuyển từ khu vực A đến khu vực B.",
+      "expected": [
+        "A",
+        "B"
+      ],
+      "actual": [
+        "A",
+        "B"
+      ],
+      "passed": true,
+      "transcription_s": 0.6895409759999893,
+      "error": null
+    },
+    {
+      "audio": "gtts_audio/command_3.mp3",
+      "synthetic_text": "Đi đến phòng thí nghiệm.",
+      "transcript": "Đi đến phòng thiến nhiệm.",
+      "expected": [
+        "B"
+      ],
+      "actual": null,
+      "passed": false,
+      "transcription_s": 0.6573810210011288,
+      "error": "Khu vực không tồn tại: phong thien nhiem"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+# Functional zones in the open Depot warehouse; these are human-assigned semantics.
+# Coordinates are in the saved map frame, metres. Edit for a different map.
+regions:
+  - id: A
+    name: Phòng học
+    aliases: [khu vực a, khu a, vùng a, phòng a, a]
+    seed: [-2.468, 0.503]
+  - id: B
+    name: Phòng thí nghiệm
+    aliases: [khu vực b, khu b, vùng b, phòng b, b, bê, khu vực bê, khu bê, vùng bê, phòng bê]
+    seed: [2.0, -3.0]
+  - id: C
+    name: Hành lang
+    aliases: [khu vực c, khu c, vùng c, phòng c, hành lang c, c, xê, khu vực xê, khu xê, vùng xê, hành lang xê]
+    seed: [2.0, 3.0]

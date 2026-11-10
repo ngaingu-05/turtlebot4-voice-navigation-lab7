@@ -1,0 +1,14 @@
+/build/
+/install/
+/log/
+/dist/
+/.venv*/
+/models/
+/.vscode/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+/docs/lab7/audio/
+*.db3
+*.mcap
+*.bag

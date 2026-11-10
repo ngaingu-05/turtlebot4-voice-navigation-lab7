@@ -1,0 +1,5 @@
+Loading multilingual Whisper small (CPU int8)...
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+{"audio": "synthetic_audio/command_1.wav", "synthetic_text": "Đi đến khu vực a.", "transcript": "Hãy subscribe cho kênh Ghiền Mì Gõ Để không bỏ lỡ những video hấp dẫn", "expected": ["A"], "actual": null, "passed": false, "transcription_s": 2.7119066399991425, "error": "Lệnh phủ định hoặc mơ hồ; hãy nói rõ một tuyến đường"}
+{"audio": "synthetic_audio/command_2.wav", "synthetic_text": "Di chuyển từ khu vực a đến khu vực bê.", "transcript": "", "expected": ["A", "B"], "actual": null, "passed": false, "transcription_s": 7.716647279999961, "error": "Dùng: Đi đến <vùng>, hoặc Di chuyển từ <vùng> đến <vùng>"}
+{"audio": "synthetic_audio/command_3.wav", "synthetic_text": "Đi đến phòng thí nghiệm.", "transcript": "Hãy subscribe cho kênh Ghiền Mì Gõ Để không bỏ lỡ những video hấp dẫn", "expected": ["B"], "actual": null, "passed": false, "transcription_s": 2.274182290999306, "error": "Lệnh phủ định hoặc mơ hồ; hãy nói rõ một tuyến đường"}

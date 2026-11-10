@@ -1,0 +1,208 @@
+#!/usr/bin/env python3
+"""Nonblocking, sequential NavigateToPose client for validated voice commands."""
+import json
+import math
+from pathlib import Path
+import time
+
+import rclpy
+from rclpy.action import ActionClient
+from rclpy.clock import Clock, ClockType
+from rclpy.node import Node
+from rclpy.qos import DurabilityPolicy, QoSProfile
+from action_msgs.msg import GoalStatus
+from ament_index_python.packages import get_package_share_directory
+from geometry_msgs.msg import Point
+from nav2_msgs.action import NavigateToPose
+from std_msgs.msg import String
+from visualization_msgs.msg import Marker, MarkerArray
+
+from voice_core import CommandError, RegionCatalog
+
+
+class VoiceNavigation(Node):
+    def __init__(self):
+        super().__init__('voice_navigation')
+        default = str(Path(get_package_share_directory('tb4_voice_navigation')) / 'maps/regions.yaml')
+        self.declare_parameter('regions_file', default)
+        self.declare_parameter('goal_timeout', 180.0)
+        self.declare_parameter('action_name', 'navigate_to_pose')
+        self.timeout = float(self.get_parameter('goal_timeout').value)
+        if not math.isfinite(self.timeout) or self.timeout <= 0:
+            raise ValueError('goal_timeout must be finite and positive')
+        self.catalog = RegionCatalog.load(self.get_parameter('regions_file').value)
+        self.client = ActionClient(self, NavigateToPose, self.get_parameter('action_name').value)
+        self.status_pub = self.create_publisher(String, 'voice_nav/status', 10)
+        qos = QoSProfile(depth=1, durability=DurabilityPolicy.TRANSIENT_LOCAL)
+        self.marker_pub = self.create_publisher(MarkerArray, 'voice_nav/markers', qos)
+        self.create_subscription(String, 'voice_nav/text', self.on_text, 10)
+        self.route, self.index, self.goal_handle = [], 0, None
+        self.busy, self.cancel_requested, self.deadline = False, False, 0.0
+        self.create_timer(.1, self.check_timeout, clock=Clock(clock_type=ClockType.STEADY_TIME))
+        self.publish_markers([])
+        self.status('ready', 'Sẵn sàng nhận lệnh')
+
+    def status(self, state, message, **extra):
+        payload = dict(state=state, message=message, route=self.route, index=self.index, **extra)
+        self.status_pub.publish(String(data=json.dumps(payload, ensure_ascii=False)))
+        self.get_logger().info(json.dumps(payload, ensure_ascii=False))
+
+    def on_text(self, msg):
+        try:
+            route = self.catalog.parse(msg.data)
+        except CommandError as exc:
+            self.status('invalid_command', str(exc), text=msg.data)
+            return
+        if route is None:
+            self.cancel('Người dùng yêu cầu dừng')
+            return
+        if self.busy:
+            self.status('busy', 'Robot đang thực hiện lệnh; hãy chờ hoặc nói dừng lại')
+            return
+        if not self.client.server_is_ready():
+            self.status('unavailable', 'Nav2 chưa sẵn sàng; kiểm tra localization và action server')
+            return
+        self.route, self.index = route, 0
+        self.busy, self.cancel_requested = True, False
+        self.publish_markers(route)
+        self.send_next()
+
+    def send_next(self):
+        if self.index == len(self.route):
+            self.busy, self.goal_handle = False, None
+            self.status('completed', 'Đã hoàn thành tuyến đường')
+            return
+        self.goal_handle = None
+        region = self.catalog.regions[self.route[self.index]]
+        pose = region['goal']
+        goal = NavigateToPose.Goal()
+        goal.pose.header.frame_id = 'map'
+        goal.pose.header.stamp = self.get_clock().now().to_msg()
+        goal.pose.pose.position.x = float(pose['x'])
+        goal.pose.pose.position.y = float(pose['y'])
+        goal.pose.pose.orientation.z = math.sin(pose['yaw'] / 2)
+        goal.pose.pose.orientation.w = math.cos(pose['yaw'] / 2)
+        self.deadline = time.monotonic() + self.timeout
+        self.status('navigating', f'Đi đến {region["name"]}', region=region['id'])
+        try:
+            future = self.client.send_goal_async(goal)
+            future.add_done_callback(self.on_accepted)
+        except Exception as exc:
+            self.busy = False  # request was not submitted
+            self.status('failed', str(exc))
+
+    def on_accepted(self, future):
+        try:
+            self.goal_handle = future.result()
+        except Exception as exc:
+            # An unknown server state must not start another potentially competing goal.
+            self.cancel_requested = True
+            self.status('fault', f'Không xác định được trạng thái goal: {exc}; kiểm tra Nav2')
+            return
+        if not self.goal_handle.accepted:
+            self.busy, self.goal_handle = False, None
+            self.status('rejected', 'Nav2 từ chối đích; dừng toàn bộ tuyến')
+            return
+        self.goal_handle.get_result_async().add_done_callback(self.on_result)
+        if self.cancel_requested:
+            self.request_cancel()
+
+    def on_result(self, future):
+        try:
+            result = future.result()
+        except Exception as exc:
+            self.cancel_requested = True
+            self.status('fault', f'Mất kết quả Nav2: {exc}; kiểm tra robot trước khi khởi động lại node')
+            return
+        self.goal_handle = None
+        if self.cancel_requested:
+            self.busy = False
+            self.status('stopped', 'Goal đã kết thúc; tuyến đường đã hủy', action_status=result.status)
+        elif result.status == GoalStatus.STATUS_SUCCEEDED:
+            self.status('arrived', f'Đã đến {self.route[self.index]}')
+            self.index += 1
+            self.send_next()
+        else:
+            self.busy = False
+            self.status('failed', 'Nav2 thất bại; không gửi các điểm còn lại', action_status=result.status)
+
+    def cancel(self, reason):
+        if not self.busy:
+            self.status('idle', 'Robot không có lệnh đang chạy')
+            return
+        if self.cancel_requested:
+            self.status('stopping', 'Đang chờ Nav2 kết thúc goal')
+            return
+        self.cancel_requested = True
+        self.status('stopping', reason)
+        # A goal accepted after a stop request is cancelled in on_accepted.
+        if self.goal_handle is not None:
+            self.request_cancel()
+
+    def request_cancel(self):
+        try:
+            self.goal_handle.cancel_goal_async().add_done_callback(self.on_cancel_response)
+        except Exception as exc:
+            self.status('fault', f'Không gửi được yêu cầu hủy: {exc}')
+
+    def on_cancel_response(self, future):
+        try:
+            response = future.result()
+            if not response.goals_canceling and self.busy:
+                self.status('stopping', 'Nav2 chưa xác nhận hủy; chờ kết quả cuối cùng')
+        except Exception as exc:
+            self.status('fault', f'Không xác nhận được yêu cầu hủy: {exc}')
+
+    def check_timeout(self):
+        if self.busy and not self.cancel_requested and time.monotonic() >= self.deadline:
+            self.cancel('Quá thời gian điều hướng; hủy tuyến đường')
+
+    def publish_markers(self, route):
+        markers = []
+        for i, region in enumerate(self.catalog.regions.values()):
+            marker = Marker()
+            marker.header.frame_id, marker.ns, marker.id = 'map', 'semantic_regions', i
+            marker.type, marker.action = Marker.TEXT_VIEW_FACING, Marker.ADD
+            marker.pose.position.x = float(region['goal']['x'])
+            marker.pose.position.y = float(region['goal']['y'])
+            marker.pose.position.z, marker.pose.orientation.w = .5, 1.0
+            marker.scale.z = .35
+            marker.color.r, marker.color.g, marker.color.b, marker.color.a = .1, .5, 1.0, 1.0
+            marker.text = f'{region["id"]}: {region["name"]}'
+            markers.append(marker)
+        line = Marker()
+        line.header.frame_id, line.ns, line.id = 'map', 'requested_waypoints', 0
+        line.type, line.action = Marker.LINE_STRIP, Marker.ADD if len(route) > 1 else Marker.DELETE
+        line.pose.orientation.w, line.scale.x = 1.0, .06
+        line.color.r, line.color.g, line.color.a = 1.0, .6, 1.0
+        for rid in route:
+            goal = self.catalog.regions[rid]['goal']
+            line.points.append(Point(x=float(goal['x']), y=float(goal['y']), z=.15))
+        markers.append(line)
+        self.marker_pub.publish(MarkerArray(markers=markers))
+
+
+def main(args=None):
+    from rclpy.signals import SignalHandlerOptions
+    rclpy.init(args=args, signal_handler_options=SignalHandlerOptions.NO)
+    node = None
+    try:
+        node = VoiceNavigation()
+        rclpy.spin(node)
+    except KeyboardInterrupt:
+        if node:
+            node.cancel('Dừng tiến trình')
+            deadline = time.monotonic() + 3
+            while node.busy and time.monotonic() < deadline and rclpy.ok():
+                rclpy.spin_once(node, timeout_sec=.1)
+            if node.busy:
+                node.get_logger().error('Chưa xác nhận robot dừng; kiểm tra Nav2 / nút dừng robot')
+    finally:
+        if node:
+            node.destroy_node()
+        if rclpy.ok():
+            rclpy.shutdown()
+
+
+if __name__ == '__main__':
+    main()

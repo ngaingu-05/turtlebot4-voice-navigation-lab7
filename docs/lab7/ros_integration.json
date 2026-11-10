@@ -1,0 +1,127 @@
+{
+  "server": "MOCK NavigateToPose, no robot motion",
+  "tests": [
+    {
+      "test": "Đi đến khu vực A",
+      "passed": true,
+      "goal_count": 1,
+      "cancellations": 0,
+      "states": [
+        "navigating",
+        "arrived",
+        "completed"
+      ]
+    },
+    {
+      "test": "Di chuyển từ khu vực A đến khu vực B",
+      "passed": true,
+      "goal_count": 2,
+      "cancellations": 0,
+      "states": [
+        "navigating",
+        "arrived",
+        "navigating",
+        "arrived",
+        "completed"
+      ]
+    },
+    {
+      "test": "Đi đến phòng thí nghiệm",
+      "passed": true,
+      "goal_count": 1,
+      "cancellations": 0,
+      "states": [
+        "navigating",
+        "arrived",
+        "completed"
+      ]
+    },
+    {
+      "test": "Đi từ phòng A qua hành lang C rồi đến phòng B",
+      "passed": true,
+      "goal_count": 3,
+      "cancellations": 0,
+      "states": [
+        "navigating",
+        "arrived",
+        "navigating",
+        "arrived",
+        "navigating",
+        "arrived",
+        "completed"
+      ]
+    },
+    {
+      "test": "Đi từ A qua khu vực Z rồi đến B",
+      "passed": true,
+      "goal_count": 0,
+      "cancellations": 0,
+      "states": [
+        "invalid_command"
+      ]
+    },
+    {
+      "test": "Không đi đến A",
+      "passed": true,
+      "goal_count": 0,
+      "cancellations": 0,
+      "states": [
+        "invalid_command"
+      ]
+    },
+    {
+      "test": "reject_stops_route",
+      "passed": true,
+      "goal_count": 1,
+      "cancellations": 0,
+      "states": [
+        "navigating",
+        "rejected"
+      ]
+    },
+    {
+      "test": "abort_stops_route",
+      "passed": true,
+      "goal_count": 1,
+      "cancellations": 0,
+      "states": [
+        "navigating",
+        "failed"
+      ]
+    },
+    {
+      "test": "busy_and_stop",
+      "passed": true,
+      "goal_count": 1,
+      "cancellations": 1,
+      "states": [
+        "navigating",
+        "busy",
+        "stopping",
+        "stopped"
+      ]
+    },
+    {
+      "test": "timeout_cancels_route",
+      "passed": true,
+      "goal_count": 1,
+      "cancellations": 1,
+      "states": [
+        "navigating",
+        "stopping",
+        "stopped"
+      ]
+    },
+    {
+      "test": "stop_before_acceptance",
+      "passed": true,
+      "goal_count": 1,
+      "cancellations": 1,
+      "states": [
+        "navigating",
+        "stopping",
+        "stopped"
+      ]
+    }
+  ]
+}

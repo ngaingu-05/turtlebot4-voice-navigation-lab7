@@ -1,0 +1,5 @@
+# Install inside a --system-site-packages venv, so rclpy remains accessible.
+faster-whisper==1.2.1
+sounddevice==0.5.6
+# PyAV 19 rejects metadata_errors used by faster-whisper 1.2.1 for file input.
+av==16.0.1
